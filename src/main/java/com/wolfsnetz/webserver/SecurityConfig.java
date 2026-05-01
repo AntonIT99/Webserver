@@ -13,7 +13,24 @@ public class SecurityConfig
     {
         return http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers(
+                    "/",
+                    "/index.html",
+                    "/login",
+                    "/favicon.ico",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**",
+                    "/games",
+                    "/games/",
+                    "/games/index.html",
+                    "/games/**",
+                    "/minecraft",
+                    "/minecraft/",
+                    "/minecraft/index.html",
+                    "/minecraft/**",
+                    "/api/minecraft/status"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

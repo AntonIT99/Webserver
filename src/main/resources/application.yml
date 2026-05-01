@@ -1,0 +1,4 @@
+minecraft:
+  host: 192.168.178.30
+  port: 25565
+  timeout-ms: 1500

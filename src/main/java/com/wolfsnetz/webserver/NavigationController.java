@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class NavigationController
 {
+    @GetMapping({"/", "/index.html"})
+    public String home()
+    {
+        return "index";
+    }
+
     @GetMapping({"/games", "/games/"})
     public String games()
     {

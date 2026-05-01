@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Wolfsschanze-Netz</title>
+    <title th:text="${siteName}"></title>
     <style>
         body {
             margin: 0;
@@ -115,7 +115,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Wolfsschanze-Netz</h1>
+    <h1 th:text="${siteName}"></h1>
 
     <div class="cards">
         <a class="card" href="/login">
@@ -143,9 +143,7 @@
         </a>
     </div>
 
-    <footer>
-        Wolfsschanze-Netz
-    </footer>
+    <footer th:text="${siteName}"></footer>
 </div>
 </body>
 </html>

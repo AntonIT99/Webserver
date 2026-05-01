@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background-image: url('/images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+        }
+
+        .panel {
+            position: relative;
+            z-index: 1;
+            width: min(760px, 100%);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 32px;
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            margin: 0 0 28px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            text-align: left;
+        }
+
+        th {
+            color: #cfd8dc;
+            font-weight: normal;
+        }
+
+        .empty {
+            color: #cfd8dc;
+            text-align: center;
+        }
+
+        button {
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #f5f5f5;
+            background: rgba(255, 255, 255, 0.12);
+            font: inherit;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .logout {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<main class="panel">
+    <h1>Admin Dashboard</h1>
+
+    <p class="empty" th:if="${#lists.isEmpty(pendingUsers)}">Keine offenen Registrierungen.</p>
+
+    <table th:if="${!#lists.isEmpty(pendingUsers)}">
+        <thead>
+        <tr>
+            <th>Benutzername</th>
+            <th>Registriert am</th>
+            <th>Aktion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${pendingUsers}">
+            <td th:text="${user.username()}"></td>
+            <td th:text="${user.createdAt()}"></td>
+            <td>
+                <form method="post" action="/admin/users/approve">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <input type="hidden" name="userId" th:value="${user.id()}">
+                    <button type="submit">Freigeben</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form class="logout" method="post" action="/logout">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button type="submit">Ausloggen</button>
+    </form>
+</main>
+</body>
+</html>

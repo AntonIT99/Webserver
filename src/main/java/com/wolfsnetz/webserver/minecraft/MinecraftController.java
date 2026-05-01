@@ -14,9 +14,9 @@ public class MinecraftController
         this.service = service;
     }
 
-    @GetMapping({"/minecraft", "/minecraft/"})
+    @GetMapping({"/minecraft", "/minecraft/", "/minecraft/index.html"})
     public String minecraft() {
-        return "redirect:/minecraft/index.html";
+        return "redirect:/games/minecraft/server/index.html";
     }
 
     @GetMapping("/api/minecraft/status")

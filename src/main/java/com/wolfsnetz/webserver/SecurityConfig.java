@@ -2,10 +2,14 @@ package com.wolfsnetz.webserver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig
 {
     @Bean
@@ -17,6 +21,7 @@ public class SecurityConfig
                     "/",
                     "/index.html",
                     "/login",
+                    "/register",
                     "/favicon.ico",
                     "/css/**",
                     "/js/**",
@@ -35,11 +40,19 @@ public class SecurityConfig
             )
             .formLogin(form -> form
                 .loginPage("/login")
+                .defaultSuccessUrl("/dashboard", true)
+                .failureUrl("/login?error")
                 .permitAll()
             )
             .logout(logout -> logout
                 .logoutSuccessUrl("/")
             )
             .build();
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder()
+    {
+        return new BCryptPasswordEncoder();
     }
 }

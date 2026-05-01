@@ -37,3 +37,4 @@ out/
 .vscode/
 
 deploy-to-pi.local.ps1
+data/

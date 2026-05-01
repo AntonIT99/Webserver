@@ -25,7 +25,7 @@ if (-not $Jar) {
 }
 
 Write-Host "Uploading $($Jar.Name) to Raspberry Pi..."
-scp $Jar.FullName "${PiUser}@${PiHost}:${TargetPath}"
+scp -i $SshKey $Jar.FullName "${PiUser}@${PiHost}:${TargetPath}"
 
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Upload failed."
